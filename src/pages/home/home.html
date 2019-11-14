@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle ion-button icon-only>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ionic 3 Base</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form (ngSubmit)="logForm()">
+        <ion-item>
+          <ion-label>Name:</ion-label>
+          <ion-input type="text" name="name"></ion-input>
+        </ion-item>
+        <ion-item>
+            Barcode:
+          <button ion-button large (click)="scan()"><ion-icon ios="ios-barcode" md="md-barcode"></ion-icon></button>
+          </ion-item>
+          <ion-item *ngIf="barcodeData">
+              BarcodeData: {{barcodeData}}
+          </ion-item>
+          <ion-item *ngIf="cancel">
+              Cancel: {{cancel}}
+          </ion-item>
+        <ion-item>
+          <ion-label>Description:</ion-label>
+          <ion-textarea  name="description"></ion-textarea>
+        </ion-item>
+        <button ion-button type="submit" block>Add Todo</button>
+      </form>
+   <button ion-button large (click)="scan()">ShowAlert</button>
+  <!--<button ion-button large (click)="showLoading()">ShowLoading</button>
+  <button ion-button large (click)="getInfoApi()">ConsumeApi</button>
+  <ion-item *ngFor="let tournament of tournamentList">
+    {{tournament.name}}
+  </ion-item> -->
+</ion-content>
