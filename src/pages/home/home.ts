@@ -27,10 +27,10 @@ export class HomePage {
       // .setGeneralNotificationMessage("Data qr:: "+ barcodeData.text);
       this.barcodeData = barcodeData.text;
       this.cancel = barcodeData.cancelled;
-      if(this.cancel){
-        this.eventsManager
-        .setGeneralNotificationMessage("cancel:: ");
-      }
+      // if(this.cancel){
+      //   this.eventsManager
+      //   .setGeneralNotificationMessage("cancel:: ");
+      // }
 
      }).catch(err => {
          console.log('Error', err);
