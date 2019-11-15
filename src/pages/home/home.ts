@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { EventsManagerProvider } from '../../providers/events-manager/events-manager';
 import { ConsumeApiProvider } from '../../providers/consume-api/consume-api';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -8,29 +8,27 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+   barcodeData: string;
+   cancel: boolean;
   tournamentList: any[];
-  barcodeData: string;
-  cancel: boolean = false;
   constructor(public navCtrl: NavController,
               public eventsManager: EventsManagerProvider,
               public consumeApi: ConsumeApiProvider,
-              private barcodeScanner: BarcodeScanner,
-              public platform : Platform
-              ) {
-           
+              private barcodeScanner: BarcodeScanner) {
   }
   scan(){
-    
-    this.barcodeScanner.scan().then(barcodeData => {
+    this.barcodeScanner.scan(
+      { prompt: 'Coloque el código a leer en el área permitida' }
+    ).then(barcodeData => {
       // this.eventsManager
       // .setGeneralNotificationMessage("Data qr:: "+ barcodeData.text);
       this.barcodeData = barcodeData.text;
       this.cancel = barcodeData.cancelled;
-      // if(this.cancel){
-      //   this.eventsManager
-      //   .setGeneralNotificationMessage("cancel:: ");
-      // }
+       if(this.cancel){
+         this.showLoading();
+         //this.eventsManager
+         //.setGeneralNotificationMessage("cancel:: ");
+       }
 
      }).catch(err => {
          console.log('Error', err);
@@ -38,6 +36,7 @@ export class HomePage {
       .setGeneralNotificationMessage("Data qr error:: "+ err);
      });
   }
+
   showAlert() {
     this.eventsManager
         .setGeneralNotificationMessage("Important rx notification");
@@ -65,3 +64,4 @@ export class HomePage {
         });
   }
 }
+
